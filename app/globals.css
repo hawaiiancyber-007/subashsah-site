@@ -1,0 +1,271 @@
+
+
+/* ---------------------------------------
+   HERO COUNTDOWN STYLING (CLEAN & TRANSPARENT)
+--------------------------------------- */
+.hero-countdown {
+  display: block !important; 
+  visibility: visible !important;
+  text-align: center;
+  margin-bottom: 25px; /* Creates clean separation directly above your name */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  
+  /* Pure white text for the separator colons */
+  color: #ffffff !important; 
+  
+  /* Completely transparent background */
+  background: transparent !important; 
+  
+  padding: 10px 0;
+  border-radius: 0px; 
+  border: none !important; /* No borders */
+  box-shadow: none !important; /* No glow */
+  z-index: 10; /* Keeps it layered on top of video overlays */
+  width: 100%;
+  max-width: 750px;
+  box-sizing: border-box;
+}
+
+.countdown-unit {
+  font-weight: bold;
+  color: #ef4444 !important; /* Sharp Red Numbers */
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.5); /* Matching Red Glow */
+  display: inline-block;
+}
+/* ---------------------------------------
+   1. RESET & VIEWPORT LOCK
+--------------------------------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden; 
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ---------------------------------------
+   2. NAVBAR
+--------------------------------------- */
+.navbar {
+  background: rgba(17, 24, 39, 0.75);
+  border-bottom: 1px solid #1e293b;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 100; 
+  backdrop-filter: blur(10px);
+}
+.navbar .container { display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; width: 100%; }
+.logo { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: bold; color: #38bdf8; }
+.nav-links { display: flex; gap: clamp(15px, 2.5vw, 30px); }
+.nav-links a { font-size: clamp(0.9rem, 1.5vw, 1.1rem); transition: 0.3s; opacity: 0.85; }
+.nav-links a:hover { color: #38bdf8; opacity: 1; }
+
+/* ---------------------------------------
+   3. SINGLE PAGE HERO
+--------------------------------------- */
+.hero { position: relative; height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center; background: #000; }
+.hero .bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transform: translateZ(0); backface-visibility: hidden; will-change: transform; }
+.hero::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.45); z-index: 1; }
+.hero-overlay { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 40px; width: 100%; animation: fadeUp 1.2s ease-out; }
+.hero-name-link { text-decoration: none; cursor: pointer; display: inline-block; transition: transform 0.2s ease; }
+.hero-name-link:hover { transform: scale(1.02); }
+.hero-name { font-size: clamp(2.5rem, 6vw, 5.5rem); font-weight: bold; color: rgba(56, 189, 248, 0.75); text-shadow: 0 0 25px rgba(56, 189, 248, 0.35); letter-spacing: 2px; line-height: 1.1; }
+.hero-subtitle { margin-top: 15px; font-size: clamp(1rem, 2vw, 1.5rem); color: rgba(203, 213, 225, 0.85); max-width: 1200px; }
+
+/* ---------------------------------------
+   4. GLOBAL SECTION LAYOUT (80% Height & Transparent)
+--------------------------------------- */
+.section-wrapper { 
+  min-height: 100vh; 
+  width: 100vw; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 80px 20px; 
+  position: relative;
+}
+.content-card { 
+  width: 100vw; 
+  max-width: 1200px; 
+  height: 80vh; /* Constrains card displays strictly to 80% of screen height */
+  border-radius: 0px; 
+  background: transparent; /* Seamless transparent look for grids */
+  position: relative;
+}
+
+/* ---------------------------------------
+   5. UNIFORM IMAGE GRID SYSTEM (All Sections)
+--------------------------------------- */
+.image-grid-stage {
+  width: 100%;
+  height: 100%;
+  max-width: 1100px; /* Added max-width cap to keep image size constrained */
+  margin: 0 auto;    /* Centers the layout container stage on wide displays */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 25px;
+  padding: 20px;
+  overflow-y: auto; /* Internal scrolling if card layout items overflow 80vh boundaries */
+}
+
+.grid-image-wrapper {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Forces uniform length and height matrix boxes */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.grid-image-wrapper:hover {
+  transform: scale(1.04); /* Clean hover interactive pop */
+}
+
+.grid-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Fixes cropping: forces entire image to fit inside frame bounds */
+  background: transparent;
+}
+
+/* Fullscreen Video Background Layer for Hobbies, Military & Floating Sections */
+.hobbies-section,
+.military-section,
+.floating-section,
+.about-section {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  min-height: 100vh; /* Locked to full viewport to display videos correctly */
+  display: flex;
+  align-items: center;      /* FIXED: Centers inner cards vertically on screen */
+  justify-content: center;    /* FIXED: Centers inner cards horizontally on screen */
+}
+.hobbies-section .bg-video,
+.military-section .bg-video,
+.floating-section .bg-video,
+.about-section .bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 1;
+}
+.hobbies-section .hero-overlay,
+.military-section .hero-overlay,
+.floating-section .hero-overlay,
+.about-section .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 2;
+}
+.hobbies-card,
+.military-card,
+.floating-card,
+.about-card {
+  position: relative;
+  z-index: 3; 
+}
+
+/* ---------------------------------------
+   6. FLOATING MINDGAME WORDS
+--------------------------------------- */
+.floating-card {
+  display: flex !important;
+  align-items: center;       /* FIXED: Perfect vertical alignment for text */
+  justify-content: center;   /* FIXED: Perfect horizontal alignment for text */
+  width: 100%;
+  height: 100%;
+}
+
+.floating-container { 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center;   /* Gathers words cleanly inward */
+  align-items: center; 
+  gap: clamp(20px, 4vw, 45px); 
+  max-width: 1000px; 
+  width: 100%;
+  padding: 20px;
+}
+
+.word { 
+  color: rgba(56, 189, 248, 0.85); 
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem); 
+  font-weight: bold; 
+  cursor: default; 
+  transition: 0.4s; 
+  animation: floatEffect 6s ease-in-out infinite; 
+  white-space: nowrap;
+  text-align: center;
+}
+
+.word:hover { 
+  color: #38bdf8; 
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.8); 
+  transform: scale(1.15); 
+}
+
+.word-0 { animation-duration: 5s; }
+.word-1 { animation-duration: 7s; animation-delay: 1s; }
+.word-2 { animation-duration: 6s; animation-delay: 2s; }
+.word-3 { animation-duration: 8s; }
+.word-4 { animation-duration: 5.5s; animation-delay: 1.5s; }
+.word-5 { animation-duration: 7.5s; }
+.word-6 { animation-duration: 6.5s; animation-delay: 0.5s; }
+.word-7 { animation-duration: 9s; }
+.word-8 { animation-duration: 5s; animation-delay: 2s; }
+.word-9 { animation-duration: 8.5s; }
+
+/* ---------------------------------------
+   7. LIGHTBOX & FOOTER
+--------------------------------------- */
+.lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98); display: flex; align-items: center; justify-content: center; z-index: 999; }
+.lightbox img { width: 90vw; height: 90vh; object-fit: contain; }
+.footer { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 100; border-top: 1px solid #1e293b; text-align: center; padding: 20px; color: #94a3b8; background: rgba(11, 18, 32, 0.85); backdrop-filter: blur(10px); }
+
+/* ---------------------------------------
+   8. ANIMATIONS
+--------------------------------------- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes floatEffect { 0% { transform: translateY(0px); } 50% { transform: translateY(-30px); } 100% { transform: translateY(0px); } }
+
+/* ---------------------------------------
+   9. RESPONSIVE ADJUSTMENTS & DESKTOP LIMITS
+--------------------------------------- */
+@media (max-width: 768px) {
+  .navbar .container { flex-direction: column; gap: 10px; padding: 12px 20px; }
+  .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+  .footer { padding: 15px; }
+  
+  /* Stacks layout grid modules cleanly onto smaller smartphone breakviewports */
+  .image-grid-stage {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: 100%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .content-card {
+    width: 90vw;
+    height: 80vh; 
+    border-radius: 18px;
+    background: transparent; 
+  }
+}
